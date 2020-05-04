@@ -5,14 +5,19 @@ using UnityEngine;
 public class GunPoint : MonoBehaviour
 {
     public GameObject player;
+    public GameObject shootRotate;
+    public ParticleSystem particles;
+    public ParticleSystem shootParticle;
     private Rigidbody2D playerRigid;
     public float speed=1;
+    public float shootForce=10;
     private Vector2 mousePos;
     private Vector2 gunDir;
     
     void Start()
     {
         playerRigid = player.GetComponent<Rigidbody2D>();
+        particles.Stop();
     }
 
     // Update is called once per frame
@@ -22,17 +27,31 @@ public class GunPoint : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         gunDir = new Vector2(transform.position.x, transform.position.y) - mousePos;
         transform.up = -gunDir;
+        if (Input.GetMouseButtonDown(1))
+        {
+            Shoot();
+        }
         if (Input.GetMouseButtonDown(0))
         {
-            ShootJump();
+            particles.Play();
+        }
+        if (Input.GetMouseButton(0))
+        {
+            playerRigid.AddForce(gunDir.normalized * speed);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            particles.Stop();
         }
        
     }
 
-    void ShootJump()
+    void Shoot()
     {
-        playerRigid.velocity = Vector2.zero;
-        playerRigid.AddForce(gunDir.normalized * speed);
+        shootRotate.transform.up = -gunDir;
+        shootParticle.Play();
+        
+        playerRigid.AddForce(gunDir.normalized * shootForce);
     }
 
 }
