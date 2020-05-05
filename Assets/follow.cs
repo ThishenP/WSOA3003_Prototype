@@ -14,6 +14,10 @@ public class follow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = player.transform.position;
+        if (control.instance.end == false)
+        {
+            transform.position = player.transform.position;
+        }
+        
     }
 }

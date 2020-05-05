@@ -23,26 +23,31 @@ public class GunPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = player.transform.position;
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        gunDir = new Vector2(transform.position.x, transform.position.y) - mousePos;
-        transform.up = -gunDir;
-        if (Input.GetMouseButtonDown(1))
+        if (control.instance.end == false)
         {
-            Shoot();
+            transform.position = player.transform.position;
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            gunDir = new Vector2(transform.position.x, transform.position.y) - mousePos;
+            transform.up = -gunDir;
+            if (Input.GetMouseButtonDown(1))
+            {
+                Shoot();
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                particles.Play();
+            }
+            if (Input.GetMouseButton(0))
+            {
+                playerRigid.AddForce(gunDir.normalized * speed);
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                particles.Stop();
+            }
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            particles.Play();
-        }
-        if (Input.GetMouseButton(0))
-        {
-            playerRigid.AddForce(gunDir.normalized * speed);
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            particles.Stop();
-        }
+       
+       
        
     }
 

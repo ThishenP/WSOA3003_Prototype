@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         timeSinceSpawn += Time.deltaTime;
-        if (timeSinceSpawn>2)
+        if (timeSinceSpawn>2 && control.instance.end==false)
         {
             spawnPos = RandomEnemySpawnPoint();
             Debug.Log(spawnPos);

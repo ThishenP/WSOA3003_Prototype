@@ -17,7 +17,11 @@ public class followPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector2 pos = Vector2.Lerp((Vector2)transform.position, (Vector2)playerPos.position, cameraSpeed*Time.fixedDeltaTime);
-        transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+        if (control.instance.end == false)
+        {
+            Vector2 pos = Vector2.Lerp((Vector2)transform.position, (Vector2)playerPos.position, cameraSpeed * Time.fixedDeltaTime);
+            transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+        }
+       
     }
 }

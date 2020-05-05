@@ -15,13 +15,12 @@ public class trackPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (transform.position.y>-30)
+        if (transform.position.y>-30 && control.instance.end == false)
         {
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, enemySpeed * Time.deltaTime);
         }
-       
-        
+
     }
 }
