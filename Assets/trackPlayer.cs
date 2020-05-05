@@ -5,7 +5,9 @@ using UnityEngine;
 public class trackPlayer : MonoBehaviour
 {
     public float enemySpeed=5;
+    private Vector2 poolPos = new Vector2(-40,-40);
     private Transform playerPos;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,11 @@ public class trackPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, playerPos.position, enemySpeed * Time.deltaTime);
+        if (transform.position.y>-30)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, enemySpeed * Time.deltaTime);
+        }
+       
+        
     }
 }
