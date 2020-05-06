@@ -10538,7 +10538,7 @@ MonoBehaviour:
   shootRotate: {fileID: 264817596}
   particles: {fileID: 205582570}
   shootParticle: {fileID: 337613478}
-  speed: 0.5
+  speed: 4
   shootForce: 200
 --- !u!212 &720072556
 SpriteRenderer:

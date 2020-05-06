@@ -37,20 +37,21 @@ public class GunPoint : MonoBehaviour
             {
                 particles.Play();
             }
-            if (Input.GetMouseButton(0))
-            {
-                playerRigid.AddForce(gunDir.normalized * speed);
-            }
+         
             if (Input.GetMouseButtonUp(0))
             {
                 particles.Stop();
             }
         }
-       
-       
-       
     }
 
+    void FixedUpdate()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            playerRigid.AddForce(gunDir.normalized * speed);
+        }
+    }
     void Shoot()
     {
         shootRotate.transform.up = -gunDir;
