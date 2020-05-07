@@ -10,8 +10,8 @@ public class WriteToFile : MonoBehaviour
     public InputField Name;
     public InputField Feedback;
     public GameObject form;
-    readonly string postURL = "http://localhost:8080/unity_post_handler.php";
-    readonly string getURL = "http://localhost:8080/unity_post_handler.php";
+    readonly string postURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
+    readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
     // Start is called before the first frame update
     void Start()
     {
