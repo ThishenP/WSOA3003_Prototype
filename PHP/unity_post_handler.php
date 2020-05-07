@@ -1,7 +1,8 @@
 <?php
     $text1 = $_POST["name"];
     $text2 = $_POST["feedback"];
-    
+
+
     if($text1 != "")
     {
         echo("Message Sent");

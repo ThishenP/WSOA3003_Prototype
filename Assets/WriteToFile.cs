@@ -10,8 +10,8 @@ public class WriteToFile : MonoBehaviour
     public InputField Name;
     public InputField Feedback;
     public GameObject form;
-    readonly string postURL = "http://localhost:80/unity_post_handler.php";
-    readonly string getURL = "http://localhost:80/unity_post_handler.php";
+    readonly string postURL = "http://localhost:8080/unity_post_handler.php";
+    readonly string getURL = "http://localhost:8080/unity_post_handler.php";
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +36,7 @@ public class WriteToFile : MonoBehaviour
         List<IMultipartFormSection> survey = new List<IMultipartFormSection>();
         survey.Add(new MultipartFormDataSection("name", name+" : "));
         survey.Add(new MultipartFormDataSection("feedback", feedback+", "));
-      
+        Debug.Log(postURL);
         UnityWebRequest www =  UnityWebRequest.Post(postURL,survey);
 
         yield return www.SendWebRequest();
