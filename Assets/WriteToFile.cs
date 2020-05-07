@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class WriteToFile : MonoBehaviour
 {
+    public InputField Name;
+    public InputField Feedback;
+    public GameObject form;
     readonly string postURL = "http://localhost:8000/unity_post_handler.php";
     readonly string getURL = "http://localhost:8000/unity_get_handler.php";
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SendToFile());
+     
     }
 
     // Update is called once per frame
@@ -20,17 +24,18 @@ public class WriteToFile : MonoBehaviour
 
     }
 
-    void ReturnSurvey(){
-        StartCoroutine(SendToFile());
+    public void ReturnSurvey(){
+
+        StartCoroutine(SendToFile(Name.text,Feedback.text));
+        form.SetActive(false);
     }
 
-    IEnumerator SendToFile()
+    IEnumerator SendToFile(string name, string feedback)
     {
         bool success = true;
         List<IMultipartFormSection> survey = new List<IMultipartFormSection>();
-        survey.Add(new MultipartFormDataSection("name", "TEST"));
-        survey.Add(new MultipartFormDataSection("answer1", "Answer1Test"));
-        survey.Add(new MultipartFormDataSection("answer2", "Answer2Test"));
+        survey.Add(new MultipartFormDataSection("name", name+" : "));
+        survey.Add(new MultipartFormDataSection("feedback", feedback+", "));
       
         UnityWebRequest www =  UnityWebRequest.Post(postURL,survey);
 

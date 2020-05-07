@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class control : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class control : MonoBehaviour
     public bool end = false;
     public GameObject gameOver;
     public GameObject healthBar;
+    public int score = 0;
+    public Text scoreText;
     private float timeSinceEnd;
     private void Awake()
     {
@@ -27,6 +30,10 @@ public class control : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         if (end==true) {
             timeSinceEnd += Time.deltaTime;
             if (timeSinceEnd>2) {
@@ -45,13 +52,17 @@ public class control : MonoBehaviour
 
     public void Retry()
     {
+        SceneManager.LoadScene(1);
+    }
+
+    public void Menu()
+    {
         SceneManager.LoadScene(0);
     }
 
-    public void Quit()
+    public void Point()
     {
-        Application.Quit();
+        score++;
+        scoreText.text = "Score: " + score;
     }
-
-
 }

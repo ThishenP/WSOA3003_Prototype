@@ -24,7 +24,7 @@ public class HitDetection : MonoBehaviour
         explosion.transform.position = transform.position;
         explosion.GetComponent<ParticleSystem>().Play();
         transform.position = poolPos;
-       
+        control.instance.Point();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -33,7 +33,7 @@ public class HitDetection : MonoBehaviour
             explosion.transform.position = transform.position;
             explosion.GetComponent<ParticleSystem>().Play();
             transform.position = poolPos;
-            Debug.Log("aaaah");
+            
         }
     }
 }

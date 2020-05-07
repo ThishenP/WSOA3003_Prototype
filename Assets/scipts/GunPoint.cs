@@ -13,6 +13,7 @@ public class GunPoint : MonoBehaviour
     public float shootForce=10;
     private Vector2 mousePos;
     private Vector2 gunDir;
+    private float timeSinceShot;
     
     void Start()
     {
@@ -29,7 +30,8 @@ public class GunPoint : MonoBehaviour
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             gunDir = new Vector2(transform.position.x, transform.position.y) - mousePos;
             transform.up = -gunDir;
-            if (Input.GetMouseButtonDown(1))
+            timeSinceShot += Time.deltaTime;
+            if (Input.GetMouseButtonDown(1)&&timeSinceShot>0.4)
             {
                 Shoot();
             }
@@ -47,13 +49,15 @@ public class GunPoint : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButton(0)&& control.instance.end == false)
         {
             playerRigid.AddForce(gunDir.normalized * speed);
         }
     }
     void Shoot()
     {
+        timeSinceShot = 0;
         shootRotate.transform.up = -gunDir;
         shootParticle.Play();
         
