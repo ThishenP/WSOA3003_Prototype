@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
         if (timeSinceSpawn>2 && control.instance.end==false)
         {
             spawnPos = RandomEnemySpawnPoint();
-            Debug.Log(spawnPos);
+      
             enemy[enemyIndex].transform.position = spawnPos;
             enemyIndex++;
             timeSinceSpawn = 0;

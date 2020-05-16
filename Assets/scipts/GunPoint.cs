@@ -8,9 +8,11 @@ public class GunPoint : MonoBehaviour
     public GameObject shootRotate;
     public ParticleSystem particles;
     public ParticleSystem shootParticle;
+    public ParticleSystem smallShootParticle;
     private Rigidbody2D playerRigid;
-    public float speed=1;
-    public float shootForce=10;
+   
+    public float largeShootForce=10;
+    public float smallShootForce = 10;
     private Vector2 mousePos;
     private Vector2 gunDir;
     private float timeSinceShot;
@@ -31,37 +33,41 @@ public class GunPoint : MonoBehaviour
             gunDir = new Vector2(transform.position.x, transform.position.y) - mousePos;
             transform.up = -gunDir;
             timeSinceShot += Time.deltaTime;
-            if (Input.GetMouseButtonDown(1)&&timeSinceShot>0.4)
-            {
-                Shoot();
-            }
             if (Input.GetMouseButtonDown(0))
             {
-                particles.Play();
+                Shoot(smallShootForce,smallShootParticle);
             }
-         
-            if (Input.GetMouseButtonUp(0))
+
+            if (Input.GetMouseButtonDown(1))
             {
-                particles.Stop();
+                Shoot(largeShootForce, shootParticle);
             }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    particles.Play();
+            //}
+
+            //if (Input.GetMouseButtonUp(0))
+            //{
+            //    particles.Stop();
+            //}
         }
     }
 
-    void FixedUpdate()
-    {
+    //void FixedUpdate()
+    //{
 
-        if (Input.GetMouseButton(0)&& control.instance.end == false)
-        {
-            playerRigid.AddForce(gunDir.normalized * speed);
-        }
-    }
-    void Shoot()
+    //    if (Input.GetMouseButton(0)&& control.instance.end == false)
+    //    {
+    //        playerRigid.AddForce(gunDir.normalized * speed);
+    //    }
+    //}
+    void Shoot(float force, ParticleSystem partSystem)
     {
-        timeSinceShot = 0;
+        //timeSinceShot = 0;**********************************
         shootRotate.transform.up = -gunDir;
-        shootParticle.Play();
-        
-        playerRigid.AddForce(gunDir.normalized * shootForce);
+        partSystem.Play();
+        playerRigid.AddForce(gunDir.normalized * force);
     }
 
 }
