@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -8,7 +9,20 @@ using UnityEngine.UI;
 public class WriteToFile : MonoBehaviour
 {
     public InputField Name;
-    public InputField Feedback;
+    public InputField q1In;
+    public InputField q2In;
+    public InputField q3In;
+    public InputField q4In;
+    public InputField q5In;
+    public InputField q6In;
+    public InputField q7In;
+    public InputField q8In;
+    public ToggleGroup q1Tog;
+    public ToggleGroup q2Tog;
+    public ToggleGroup q3Tog;
+    public ToggleGroup q4Tog;
+    public ToggleGroup q5Tog;
+    public ToggleGroup q6Tog;
     public GameObject form;
     private bool sent = false;
     // readonly string feedbackPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
@@ -19,7 +33,8 @@ public class WriteToFile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
+        if (q1Tog == null) q1Tog = GetComponent<ToggleGroup>();
+      
     }
 
     // Update is called once per frame
@@ -34,8 +49,10 @@ public class WriteToFile : MonoBehaviour
 
     public void ReturnSurvey(){
 
-        StartCoroutine(SendToFile(Name.text,Feedback.text));
-        form.SetActive(false);
+        Toggle selectedToggle = q1Tog.ActiveToggles().FirstOrDefault();
+        print(selectedToggle);
+        //StartCoroutine(SendToFile(Name.text,q8In.text));
+        //form.SetActive(false);
     }
 
     IEnumerator SendToFile(string name, string feedback)
