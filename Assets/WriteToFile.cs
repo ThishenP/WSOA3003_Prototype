@@ -34,7 +34,12 @@ public class WriteToFile : MonoBehaviour
     void Start()
     {
         if (q1Tog == null) q1Tog = GetComponent<ToggleGroup>();
-      
+        if (q2Tog == null) q2Tog = GetComponent<ToggleGroup>();
+        if (q3Tog == null) q3Tog = GetComponent<ToggleGroup>();
+        if (q4Tog == null) q4Tog = GetComponent<ToggleGroup>();
+        if (q5Tog == null) q5Tog = GetComponent<ToggleGroup>();
+        if (q6Tog == null) q6Tog = GetComponent<ToggleGroup>();
+
     }
 
     // Update is called once per frame
@@ -48,19 +53,32 @@ public class WriteToFile : MonoBehaviour
     }
 
     public void ReturnSurvey(){
-
-        Toggle selectedToggle = q1Tog.ActiveToggles().FirstOrDefault();
-        print(selectedToggle);
-        //StartCoroutine(SendToFile(Name.text,q8In.text));
-        //form.SetActive(false);
+        string feedback = "";
+        int q1 = int.Parse(q1Tog.ActiveToggles().FirstOrDefault().name);
+        int q2 = int.Parse(q2Tog.ActiveToggles().FirstOrDefault().name);
+        int q3 = int.Parse(q3Tog.ActiveToggles().FirstOrDefault().name);
+        int q4 = int.Parse(q4Tog.ActiveToggles().FirstOrDefault().name);
+        int q5 = int.Parse(q5Tog.ActiveToggles().FirstOrDefault().name);
+        int q6 = int.Parse(q6Tog.ActiveToggles().FirstOrDefault().name);
+        feedback += "Q1: " + q1 +" comment: "+ q1In.text +"\n";
+        feedback += "Q2: " + q2 + " comment: " + q2In.text + "\n";
+        feedback += "Q3: " + q3 + " comment: " + q3In.text + "\n";
+        feedback += "Q4: " + q4 + " comment: " + q4In.text + "\n";
+        feedback += "Q5: " + q5 + " comment: " + q5In.text + "\n";
+        feedback += "Q6: " + q6 + " comment: " + q6In.text + "\n";
+        feedback += "Q7: comment: " + q7In.text + "\n";
+        feedback += "Q8: comment: " + q8In.text + "\n\n";
+       
+        StartCoroutine(SendToFile(Name.text,feedback));
+        form.SetActive(false);
     }
 
     IEnumerator SendToFile(string name, string feedback)
     {
         bool success = true;
         List<IMultipartFormSection> survey = new List<IMultipartFormSection>();
-        survey.Add(new MultipartFormDataSection("name", name+" : "));
-        survey.Add(new MultipartFormDataSection("feedback", feedback+", "));
+        survey.Add(new MultipartFormDataSection("name", name+" : \n"));
+        survey.Add(new MultipartFormDataSection("feedback", feedback+"\n"));
         Debug.Log(feedbackPostURL);
         UnityWebRequest www =  UnityWebRequest.Post(feedbackPostURL,survey);
 

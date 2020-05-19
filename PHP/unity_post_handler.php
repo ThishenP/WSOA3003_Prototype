@@ -6,9 +6,7 @@
     if($text1 != "")
     {
         echo("Message Sent");
-        echo("Field 1:" . $text1);
-        echo("Field 2:" . $text2);
-        $file = fopen("data.txt","a");
+        $file = fopen("feedback.txt","a");
         fwrite($file, $text1);
         fwrite($file, $text2);
         fclose($file);
