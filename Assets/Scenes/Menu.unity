@@ -899,9 +899,12 @@ MonoBehaviour:
   m_Text: 'controls
 
 
-    Thrust - left Mouse Button
+    Primary Fire- left Mouse Button
 
-    Shoot - Right Mouse Button
+    Secondary Fire - Right
+    Mouse Button
+
+    Avoid bright red walls
 
 '
 --- !u!222 &1813514602
