@@ -44,7 +44,7 @@ public class HeatMap : MonoBehaviour
             
             if (dataSaved==false)
             {
-                control.instance.heatMapData += ".\n";
+                control.instance.heatMapData += "|\n";
                 string test = "";
                 for (int i = 0; i < gridPosArray.GetLength(0); i++)
                 {
