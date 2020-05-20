@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class trackPlayer : MonoBehaviour
 {
-    public float enemySpeed=5;
+    public float startEnemySpeed=2;
+    public float enemySpeedRate=0.1f;
     private Vector2 poolPos = new Vector2(-40,-40);
     private Transform playerPos;
     
@@ -17,9 +18,10 @@ public class trackPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        startEnemySpeed += Time.deltaTime * enemySpeedRate;
         if (transform.position.y>-30 && control.instance.end == false)
         {
-            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, enemySpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, startEnemySpeed * Time.deltaTime);
         }
 
     }

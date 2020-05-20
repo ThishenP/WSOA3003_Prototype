@@ -15,12 +15,17 @@ public class control : MonoBehaviour
     public int score = 0;
     public Text scoreText;
     public float[,] heatMap = new float[8, 16];
+    public float[,] overAllHeatMap = new float[8, 16];
     public string heatMapData = "";
     private float timeSinceEnd;
     public GameObject heatCellPrefab;
     public bool showingHeatMap=false;
     public bool spawnedHeat=false;
+    public bool spawnedOverallHeat = false;
     public GameObject heatMapBack;
+    private GameObject[] heatCells;
+    private int heatCount=0;
+
 
     private void Awake()
     {
@@ -36,7 +41,14 @@ public class control : MonoBehaviour
             }
         }
     }
-
+    void Start()
+    {
+        heatCells = new GameObject[130];
+        for(int i=0; i < 130; i++)
+        {
+            heatCells[i]= Instantiate(heatCellPrefab, new Vector2(-40,40), Quaternion.identity);
+        }
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -85,12 +97,45 @@ public class control : MonoBehaviour
             {
                 for (int j = 0; j < heatMap.GetLength(1); j++)
                 {
-                    Instantiate(heatCellPrefab, new Vector2(j - 7.5f, -(i - 3.5f)), Quaternion.identity);
-                    heatCellPrefab.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, control.instance.heatMap[i, j]);
-
+                    heatCells[heatCount].transform.position = new Vector2(j - 7.5f, -i + 3.5f);
+                    heatCells[heatCount].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, control.instance.heatMap[i, j]);
+                    
+                    heatCount++;
+                    if (heatCount > 128)
+                    {
+                        heatCount = 0;
+                    }
                 }
             }
             spawnedHeat = true;
+            spawnedOverallHeat = false;
+        }
+    }
+
+    public void ViewOverallHeatMap()
+    {
+        green.SetActive(true);
+        heatMapBack.SetActive(true);
+        gameOver.SetActive(false);
+
+        showingHeatMap = true;
+        if (spawnedOverallHeat == false)
+        {
+            for (int i = 0; i < heatMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < heatMap.GetLength(1); j++)
+                {
+                    heatCells[heatCount].transform.position = new Vector2(j - 7.5f, -i + 3.5f);
+                    heatCells[heatCount].GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, control.instance.overAllHeatMap[i, j]);
+                    heatCount++;
+                    if (heatCount > 128)
+                    {
+                        heatCount = 0;
+                    }
+                }
+            }
+            spawnedHeat = false;
+            spawnedOverallHeat = true;
         }
     }
 

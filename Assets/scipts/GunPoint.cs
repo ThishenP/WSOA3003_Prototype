@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunPoint : MonoBehaviour
 {
@@ -9,8 +10,14 @@ public class GunPoint : MonoBehaviour
     public ParticleSystem particles;
     public ParticleSystem shootParticle;
     public ParticleSystem smallShootParticle;
+    public ParticleSystem explode;
+    public float rmbCoolDownSpeed=0.2f;
+    public float mmbCoolDownSpeed = 0.1f;
+    public Image rmbCoolDownBar;
+    public Image mmbCoolDownBar;
     private Rigidbody2D playerRigid;
-   
+    private float rmbCoolDown=0;
+    private float mmbCoolDown=0;
     public float largeShootForce=10;
     public float smallShootForce = 10;
     private Vector2 mousePos;
@@ -26,6 +33,10 @@ public class GunPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rmbCoolDown += Time.deltaTime * rmbCoolDownSpeed;
+        rmbCoolDownBar.fillAmount = rmbCoolDown;
+        mmbCoolDown += Time.deltaTime * mmbCoolDownSpeed;
+        mmbCoolDownBar.fillAmount = mmbCoolDown;
         if (control.instance.end == false)
         {
             transform.position = player.transform.position;
@@ -38,9 +49,16 @@ public class GunPoint : MonoBehaviour
                 Shoot(smallShootForce,smallShootParticle);
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1)&&rmbCoolDown>=0.999)
             {
                 Shoot(largeShootForce, shootParticle);
+                rmbCoolDown = 0;
+            }
+
+            if (Input.GetMouseButtonDown(2) && mmbCoolDown >= 0.999)
+            {
+                explode.Play();
+                mmbCoolDown = 0;
             }
             //if (Input.GetMouseButtonDown(0))
             //{

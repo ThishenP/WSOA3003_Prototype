@@ -29,30 +29,31 @@ public class HeatMap : MonoBehaviour
                 timeSinceCheck = 0;
             }
 
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //    Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //    column = GetColumn(mousePos.x);
-            //    row = GetRow(mousePos.y);
-            //    total++;
-            //    Debug.Log("row: " + row + ", col: " + column);
-            //    gridPosArray[row, column]++;
-            //}
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                column = GetColumn(mousePos.x);
+                row = GetRow(mousePos.y);
+                
+                Debug.Log("row: " + row + ", col: " + column);
+               
+            }
         }
         else
         {
             
             if (dataSaved==false)
             {
-
+                control.instance.heatMapData += ".\n";
+                string test = "";
                 for (int i = 0; i < gridPosArray.GetLength(0); i++)
                 {
                     for (int j = 0; j < gridPosArray.GetLength(1); j++)
                     {
                        if(highest< gridPosArray[i, j])
-                        {
+                       {
                             highest = gridPosArray[i, j];
-                        } 
+                       } 
                     }
                 }
                 string row = "";
@@ -69,7 +70,7 @@ public class HeatMap : MonoBehaviour
                    
                     row = "";
                 }
-                control.instance.heatMapData += "\n\n";
+                
                 Debug.Log(control.instance.heatMapData);
                 dataSaved = true;
             }

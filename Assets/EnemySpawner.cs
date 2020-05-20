@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject wallPrefab;
     public float wallThresholdRate;
     
-    private int amountOfPrefabs = 10;
+    private int amountOfPrefabs = 50;
     private GameObject[] enemy;
     private GameObject[] damageWall;
     private GameObject[] wall;
@@ -20,7 +20,8 @@ public class EnemySpawner : MonoBehaviour
     private float wallChangeTime = 0;
     private int enemyIndex=0;
     private float wallThreshold=100;
-    
+    private int spawnAmount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,28 +62,52 @@ public class EnemySpawner : MonoBehaviour
             wallThreshold -= Time.deltaTime * wallThresholdRate;
         }
         
+        
         timeSinceSpawn += Time.deltaTime;
         wallChangeTime += Time.deltaTime;
         if (timeSinceSpawn>2 && control.instance.end==false)
         {
-            spawnPos = RandomEnemySpawnPoint();
-      
-            enemy[enemyIndex].transform.position = spawnPos;
-            enemyIndex++;
-            timeSinceSpawn = 0;
-            if (enemyIndex>amountOfPrefabs-1)
+           
+            spawnAmount = 1;
+            if (Random.Range(1, 99) > wallThreshold)
             {
-                enemyIndex = 0;
+                spawnAmount =2;
+               
             }
+
+            if (Random.Range(1, 70) > wallThreshold)
+            {
+                spawnAmount = 3;
+            }
+
+            if(Random.Range(1,55)>wallThreshold)
+            {
+                spawnAmount = 4;
+            }
+
+            for (int i=0;i< spawnAmount;i++)
+            {
+               
+                enemy[enemyIndex].transform.position = RandomEnemySpawnPoint();
+                enemyIndex++;
+                
+                if (enemyIndex > amountOfPrefabs - 1)
+                {
+                    enemyIndex = 0;
+                }
+            }
+            timeSinceSpawn = 0;
         }
+
+
         if (wallChangeTime>4 && control.instance.end==false)
         {
-            Debug.Log(wallThreshold);
+            
             float wall0 = Random.Range(1, 101);
             float wall1 = Random.Range(1, 101);
             float wall2 = Random.Range(1, 101);
             float wall3 = Random.Range(1, 101);
-            Debug.Log(wall0);
+            
             if (wall0 > wallThreshold)
             {
                 wall[0].SetActive(false);

@@ -24,6 +24,7 @@ public class WriteToFile : MonoBehaviour
     public ToggleGroup q5Tog;
     public ToggleGroup q6Tog;
     public GameObject form;
+    public bool sendData;
     private bool sent = false;
     readonly string feedbackPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
     readonly string heatMapPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/heat_map_post_handler.php";
@@ -45,7 +46,7 @@ public class WriteToFile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (control.instance.end==true&&sent==false)
+        if (control.instance.end==true&&sent==false && sendData==true)
         {
             StartCoroutine(SendHeatMap(control.instance.heatMapData));
             sent = true;
@@ -68,8 +69,11 @@ public class WriteToFile : MonoBehaviour
         feedback += "Q6: " + q6 + " comment: " + q6In.text + "\n";
         feedback += "Q7: comment: " + q7In.text + "\n";
         feedback += "Q8: comment: " + q8In.text + "\n\n";
-       
-        StartCoroutine(SendToFile(Name.text,feedback));
+        if (sendData == true)
+        {
+            StartCoroutine(SendToFile(Name.text, feedback));
+        }
+        
         form.SetActive(false);
     }
 
