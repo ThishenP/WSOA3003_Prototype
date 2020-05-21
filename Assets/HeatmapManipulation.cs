@@ -43,7 +43,7 @@ public class HeatmapManipulation : MonoBehaviour
     void GetHeatmapFromText(string text)
     {
        // Debug.Log(text);
-        string[] HeatMaps = text.Split('.');
+        string[] HeatMaps = text.Split('|');
         foreach(var HeatMap in HeatMaps)
         {
             string[] entries = HeatMap.Split('\n');
