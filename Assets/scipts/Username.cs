@@ -1,16 +1,26 @@
-﻿using JetBrains.Annotations;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Username : MonoBehaviour
 {
-    readonly string getURL = "localhost:8000/scores_get.php";
-    readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+   // readonly string getURL = "localhost:8000/scores_get.php";
+   // readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+    readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
+    readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
+    
     public string text;
     public InputField username;
+    public Text errorText;
+    public GameObject error;
+    public GameObject menu;
+    public GameObject userInput;
+    public Text signedIn;
+    private bool loggedIn=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,22 +70,52 @@ public class Username : MonoBehaviour
     }
 
 
+    public void Play()
+    {
+        if (loggedIn==true)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            errorText.text = "please login or create an account before playing";
+            error.SetActive(true);
+            menu.SetActive(false);
+        }
+    }
     public void login()
     {
         if (text!=null)
         {
-            if (checkForUser(username.text) == true)
+            if (username.text!="")
             {
-                StartCoroutine(user("overwrite","--none--", username.text));
+                if (checkForUser(username.text) == true)
+                {
+                    StartCoroutine(user("overwrite", "--none--", username.text));
+                    userInput.SetActive(false);
+                    signedIn.text = "signed in as: " + username.text;
+                    loggedIn = true;
+                }
+                else
+                {
+                    errorText.text = "username does not exist";
+                    error.SetActive(true);
+                    menu.SetActive(false);
+                }
             }
             else
             {
-                Debug.Log("username does not exists");
+                errorText.text = "please enter a valid username";
+                error.SetActive(true);
+                menu.SetActive(false);
             }
+           
         }
         else
         {
-            Debug.Log("data not yet loaded please try again");
+            errorText.text = "data has not loaded yet please try again";
+            error.SetActive(true);
+            menu.SetActive(false);
         }
     }
 
@@ -83,25 +123,42 @@ public class Username : MonoBehaviour
     {
         if (text != null)
         {
-            if (checkForUser(username.text) == true)
+            if (username.text != "")
             {
-                Debug.Log("username already exists");
+                if (checkForUser(username.text) == true)
+                {
+                    errorText.text = "username already exists";
+                    error.SetActive(true);
+                    menu.SetActive(false);
+                }
+                else
+                {
+                    Debug.Log("user created");
+
+                    StartCoroutine(user("append", username.text + ",0|", username.text));
+                    userInput.SetActive(false);
+                    signedIn.text = "signed in as: " + username.text;
+                    loggedIn = true;
+                }
             }
             else
             {
-                Debug.Log("user created");
-                StartCoroutine(user("append",username.text+",0\n", username.text));
+                errorText.text = "please enter a valid username";
+                error.SetActive(true);
+                menu.SetActive(false);
             }
         }
         else
         {
-            Debug.Log("data not yet loaded please try again");
+            errorText.text = "data has not loaded yet please try again";
+            error.SetActive(true);
+            menu.SetActive(false);
         }
     }
 
     public bool checkForUser(string username)
     {
-        string[] userData = text.Split('\n');
+        string[] userData = text.Split('|');
         foreach (var user in userData)
         {
             string[] entry = user.Split(',');
@@ -112,5 +169,11 @@ public class Username : MonoBehaviour
         }
         return false;
         
+    }
+
+    public void back()
+    {
+        error.SetActive(false);
+        menu.SetActive(true);
     }
 }

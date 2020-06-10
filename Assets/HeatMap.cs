@@ -34,9 +34,6 @@ public class HeatMap : MonoBehaviour
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 column = GetColumn(mousePos.x);
                 row = GetRow(mousePos.y);
-                
-                Debug.Log("row: " + row + ", col: " + column);
-               
             }
         }
         else
