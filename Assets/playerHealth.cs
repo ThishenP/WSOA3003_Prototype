@@ -13,18 +13,46 @@ public class playerHealth : MonoBehaviour
     public GameObject smallExplostionPrefab;
     private GameObject smallExplosion;
     private GameObject explosion;
+    public float healthThreshold;
+    private float timeSinceHealth;
+    public GameObject healthPickupPrefab;
+    private GameObject[] healthPickup;
+    private int count = 0;
     // Start is called before the first frame update
     void Start()
     {
         healthBar.fillAmount = 1;
         explosion = Instantiate(particlePrefab, poolPos, Quaternion.identity);
         smallExplosion = Instantiate(smallExplostionPrefab, poolPos, Quaternion.identity);
+
+        healthPickup = new GameObject[4];
+        for (int i = 0; i < 4; i++)
+        {
+            healthPickup[i] = Instantiate(healthPickupPrefab, poolPos, Quaternion.identity);
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        timeSinceHealth += Time.deltaTime;
+        if (timeSinceHealth > 15)
+        {
+            if (Random.Range(1, 99) > healthThreshold)
+            {
+                int i = Random.Range(0, 8);
+                int j = Random.Range(0, 15);
+                Vector2 randPos = new Vector2(j - 7.5f, -i + 3.5f);
+                healthPickup[count].transform.position=randPos;
+                count++;
+                if (count >= 3)
+                {
+                    count = 0;
+                }
+                timeSinceHealth = 0;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,6 +69,15 @@ public class playerHealth : MonoBehaviour
             healthBar.fillAmount = health / 100;
             smallExplosion.transform.position = transform.position;
             smallExplosion.GetComponent<ParticleSystem>().Play();
+        }
+
+        if (collision.gameObject.tag == "Health")
+        {
+            if (health <= 90)
+            {
+                health = health + 10;
+                healthBar.fillAmount = health / 100;
+            }
         }
 
         if (health <= 0)

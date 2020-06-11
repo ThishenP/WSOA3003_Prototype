@@ -9,7 +9,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject damageWallPrefab;
     public GameObject wallPrefab;
     public float wallThresholdRate;
-    
+   
+
     private int amountOfPrefabs = 50;
     private GameObject[] enemy;
     private GameObject[] damageWall;
@@ -30,7 +31,8 @@ public class EnemySpawner : MonoBehaviour
         {
            enemy[i] = Instantiate(enemyPrefab, poolPos, Quaternion.identity);
         }
-        
+
+      
 
         damageWall = new GameObject[4];
         damageWall[0] = Instantiate(damageWallPrefab, new Vector2(9.9f, 0), Quaternion.identity);
@@ -61,13 +63,13 @@ public class EnemySpawner : MonoBehaviour
         {
             wallThreshold -= Time.deltaTime * wallThresholdRate;
         }
+
         
         
         timeSinceSpawn += Time.deltaTime;
         wallChangeTime += Time.deltaTime;
         if (timeSinceSpawn>2 && control.instance.end==false)
         {
-           
             spawnAmount = 1;
             if (Random.Range(1, 99) > wallThreshold)
             {
@@ -98,6 +100,7 @@ public class EnemySpawner : MonoBehaviour
             }
             timeSinceSpawn = 0;
         }
+    
 
 
         if (wallChangeTime>4 && control.instance.end==false)
