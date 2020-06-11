@@ -8,11 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class Username : MonoBehaviour
 {
-   // readonly string getURL = "localhost:8000/scores_get.php";
-   // readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
-    readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
-    readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
-    
+    readonly string getURL = "localhost:8000/scores_get.php";
+    readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+    //readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
+    //readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
+
     public string text;
     public InputField username;
     public Text errorText;

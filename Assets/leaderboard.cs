@@ -7,13 +7,13 @@ using UnityEngine.UI;
 
 public class leaderboard : MonoBehaviour
 {
-    
-    //readonly string getScoreURL = "localhost:8000/scores_get.php";
-    //readonly string getCurrentURL = "localhost:8000/get_current.php";
-    //readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
-    readonly string getScoreURL = " http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
-    readonly string getCurrentURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_current.php";
-    readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
+
+    readonly string getScoreURL = "localhost:8000/scores_get.php";
+    readonly string getCurrentURL = "localhost:8000/get_current.php";
+    readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+    //readonly string getScoreURL = " http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
+    //readonly string getCurrentURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_current.php";
+    //readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
     private string text;
     private string currentUser;
     private string[] userData;
@@ -99,11 +99,10 @@ public class leaderboard : MonoBehaviour
             string[] entry = userData[i].Split(',');
             if (entry[0] == currentUser)
             {
-                Debug.Log("a");
+                
                 if (control.instance.score > int.Parse(entry[1]))
                 {
-                    userData[i] = entry[0]+"," + control.instance.score;
-
+                    userData[i] = entry[0]+"," + control.instance.score +","+control.instance.lmbAmount+","+control.instance.mmbamount+","+control.instance.rmbamount;
                 }
             }
         }

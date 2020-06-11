@@ -47,18 +47,21 @@ public class GunPoint : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Shoot(smallShootForce,smallShootParticle);
+                control.instance.lmbAmount++;
             }
 
             if (Input.GetMouseButtonDown(1)&&rmbCoolDown>=0.999)
             {
                 Shoot(largeShootForce, shootParticle);
                 rmbCoolDown = 0;
+                control.instance.mmbamount++;
             }
 
             if (Input.GetMouseButtonDown(2) && mmbCoolDown >= 0.999)
             {
                 explode.Play();
                 mmbCoolDown = 0;
+                control.instance.rmbamount++;
             }
             //if (Input.GetMouseButtonDown(0))
             //{

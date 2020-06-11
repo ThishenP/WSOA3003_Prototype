@@ -25,6 +25,9 @@ public class control : MonoBehaviour
     public GameObject heatMapBack;
     private GameObject[] heatCells;
     private int heatCount=0;
+    public int lmbAmount=0;
+    public int mmbamount=0;
+    public int rmbamount=0;
 
 
     private void Awake()
