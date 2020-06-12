@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class WriteToFile : MonoBehaviour
 {
-    public InputField Name;
+
     public InputField q1In;
     public InputField q2In;
     public InputField q3In;
@@ -26,11 +26,11 @@ public class WriteToFile : MonoBehaviour
     public GameObject form;
     public bool sendData;
     private bool sent = false;
-    //readonly string feedbackPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
-    //readonly string heatMapPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/heat_map_post_handler.php";
-    // readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
-    readonly string feedbackPostURL = "localhost:8000/unity_post_handler.php";
-    readonly string heatMapPostURL = "localhost:8000/heat_map_post_handler.php";
+    readonly string feedbackPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
+    readonly string heatMapPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/heat_map_post_handler.php";
+    readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
+    //readonly string feedbackPostURL = "localhost:8000/unity_post_handler.php";
+    //readonly string heatMapPostURL = "localhost:8000/heat_map_post_handler.php";
     // Start is called before the first frame update
     void Start()
     {
@@ -71,10 +71,11 @@ public class WriteToFile : MonoBehaviour
         feedback += "Q8: comment: " + q8In.text + "\n\n";
         if (sendData == true)
         {
-            StartCoroutine(SendToFile(Name.text, feedback));
+            StartCoroutine(SendToFile(control.instance.current, feedback));
         }
-        
-        form.SetActive(false);
+
+        //form.SetActive(false);
+        control.instance.Back();
     }
 
     IEnumerator SendToFile(string name, string feedback)

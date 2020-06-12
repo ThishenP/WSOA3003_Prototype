@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public class leaderboard : MonoBehaviour
 {
 
-    readonly string getScoreURL = "localhost:8000/scores_get.php";
-    readonly string getCurrentURL = "localhost:8000/get_current.php";
-    readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
-    //readonly string getScoreURL = " http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
-    //readonly string getCurrentURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_current.php";
-    //readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
+    //readonly string getScoreURL = "localhost:8000/scores_get.php";
+    //readonly string getCurrentURL = "localhost:8000/get_current.php";
+    //readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+    readonly string getScoreURL = " http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
+    readonly string getCurrentURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_current.php";
+    readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
     private string text;
     private string currentUser;
     private string[] userData;
@@ -62,7 +62,8 @@ public class leaderboard : MonoBehaviour
         else
         {
             text = www.downloadHandler.text;
-            currentUser = text;
+            currentUser = text.ToUpper();
+            control.instance.current = currentUser;
             StartCoroutine(GetScores());
         }
     }
@@ -97,12 +98,12 @@ public class leaderboard : MonoBehaviour
         for (int i = 0; i < userData.Length; i++)
         {
             string[] entry = userData[i].Split(',');
-            if (entry[0] == currentUser)
+            if (entry[0].ToUpper() == currentUser.ToUpper())
             {
                 
                 if (control.instance.score > int.Parse(entry[1]))
                 {
-                    userData[i] = entry[0]+"," + control.instance.score +","+control.instance.lmbAmount+","+control.instance.mmbamount+","+control.instance.rmbamount;
+                    userData[i] = entry[0].ToUpper() + "," + control.instance.score +","+control.instance.lmbAmount+","+control.instance.mmbamount+","+control.instance.rmbamount;
                 }
             }
         }
@@ -139,7 +140,7 @@ public class leaderboard : MonoBehaviour
                 rank.GetComponent<Text>().text = i + 1 + ".";
                 name.GetComponent<Text>().text = userData[i].Split(',')[0];
                 score.GetComponent<Text>().text = userData[i].Split(',')[1];
-                if (userData[i].Split(',')[0] == currentUser)
+                if (userData[i].Split(',')[0].ToUpper() == currentUser.ToUpper())
                 {
                     name.GetComponent<Text>().color = Color.green;
                     score.GetComponent<Text>().color = Color.green;

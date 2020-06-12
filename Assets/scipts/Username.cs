@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class Username : MonoBehaviour
 {
-    readonly string getURL = "localhost:8000/scores_get.php";
-    readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
-    //readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
-    //readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
+    //readonly string getURL = "localhost:8000/scores_get.php";
+    //readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+    readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
+    readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
 
     public string text;
     public InputField username;
@@ -78,7 +78,7 @@ public class Username : MonoBehaviour
         }
         else
         {
-            errorText.text = "please login or create an account before playing";
+            errorText.text = "please login or create an\n account before playing";
             error.SetActive(true);
             menu.SetActive(false);
         }
@@ -91,7 +91,7 @@ public class Username : MonoBehaviour
             {
                 if (checkForUser(username.text) == true)
                 {
-                    StartCoroutine(user("overwrite", "--none--", username.text));
+                    StartCoroutine(user("overwrite", "--none--", username.text.ToUpper()));
                     userInput.SetActive(false);
                     signedIn.text = "signed in as: " + username.text;
                     loggedIn = true;
@@ -135,7 +135,7 @@ public class Username : MonoBehaviour
                 {
                     Debug.Log("user created");
 
-                    StartCoroutine(user("append", username.text + ",0|", username.text));
+                    StartCoroutine(user("append", username.text.ToUpper() + ",0|", username.text.ToUpper()));
                     userInput.SetActive(false);
                     signedIn.text = "signed in as: " + username.text;
                     loggedIn = true;
@@ -162,7 +162,7 @@ public class Username : MonoBehaviour
         foreach (var user in userData)
         {
             string[] entry = user.Split(',');
-            if (entry[0] == username)
+            if (entry[0].ToUpper() == username.ToUpper())
             {
                 return true;
             }

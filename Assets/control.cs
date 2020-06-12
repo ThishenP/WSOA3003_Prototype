@@ -28,6 +28,9 @@ public class control : MonoBehaviour
     public int lmbAmount=0;
     public int mmbamount=0;
     public int rmbamount=0;
+    public string current;
+    public GameObject surveyFeedbackObj;
+    public GameObject gameOverObj;
 
 
     private void Awake()
@@ -152,5 +155,17 @@ public class control : MonoBehaviour
     {
         score++;
         scoreText.text = "Score: " + score;
+    }
+
+    public void Feedback()
+    {
+        surveyFeedbackObj.SetActive(true);
+        gameOverObj.SetActive(false);
+    }
+
+    public void Back()
+    {
+        surveyFeedbackObj.SetActive(false);
+        gameOverObj.SetActive(true);
     }
 }
