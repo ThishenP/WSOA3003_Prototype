@@ -25,6 +25,15 @@ public class Username : MonoBehaviour
     void Start()
     {
         StartCoroutine(GetScores());
+        StartCoroutine(user("append", "THISHEN,76|", "THISHEN"));
+        StartCoroutine(user("append", "JINSBY,58|", "JINSBY"));
+        StartCoroutine(user("append", "DIVESH,21|", "DIVESH"));
+        StartCoroutine(user("append", "AMY,47|", "AMY"));
+        StartCoroutine(user("append", "KAVI,36|", "KAVI"));
+        StartCoroutine(user("append", "JAX,31|", "JAX"));
+        StartCoroutine(user("append", "BRENTON,26|", "BRENTON"));
+        StartCoroutine(user("append", "RESHAN,7|", "RESHAN"));
+        StartCoroutine(user("append", "JEFF,4|", "JEFF"));
     }
 
     // Update is called once per frame

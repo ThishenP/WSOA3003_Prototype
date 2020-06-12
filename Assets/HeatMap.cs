@@ -68,7 +68,7 @@ public class HeatMap : MonoBehaviour
                     row = "";
                 }
                 
-                Debug.Log(control.instance.heatMapData);
+
                 dataSaved = true;
             }
            

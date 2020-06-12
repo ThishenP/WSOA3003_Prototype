@@ -133,7 +133,7 @@ public class leaderboard : MonoBehaviour
             if (userData[i] != null || userData[i] != "")
             {
                 leaderBoardStr += userData[i] + "|";
-                Debug.Log(i);
+
                 GameObject rank = Instantiate(rankPrefab, new Vector2(47.9f, 100 - (i * 14)), Quaternion.identity);
                 GameObject name = Instantiate(namePrefab, new Vector2(166.9f, 100 - (i * 14)), Quaternion.identity);
                 GameObject score = Instantiate(scorePrefab, new Vector2(287.3f, 100 - (i * 14)), Quaternion.identity);
