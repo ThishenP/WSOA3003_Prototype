@@ -6,6 +6,9 @@ public class HitDetection : MonoBehaviour
 {
     public GameObject particlePrefab;
     private GameObject explosion;
+    public AudioSource explosionSound;
+  
+
     
     private Vector2 poolPos = new Vector2(-40,-40);
 
@@ -25,8 +28,11 @@ public class HitDetection : MonoBehaviour
         if (this.tag!= "Health") {
             explosion.transform.position = transform.position;
             explosion.GetComponent<ParticleSystem>().Play();
+            explosionSound.Play();
             transform.position = poolPos;
             control.instance.Point();
+            
+            control.instance.Shake(0.1f, 0.1f);
         }
       
     }
@@ -36,6 +42,13 @@ public class HitDetection : MonoBehaviour
         {
             explosion.transform.position = transform.position;
             explosion.GetComponent<ParticleSystem>().Play();
+            if (this.tag != "Health")
+            {
+                explosionSound.Play();
+               
+               control.instance.Shake(0.1f, 0.2f);
+            }
+            
             transform.position = poolPos;
             
         }

@@ -31,6 +31,7 @@ public class control : MonoBehaviour
     public string current;
     public GameObject surveyFeedbackObj;
     public GameObject gameOverObj;
+    public screenShake screenShake;
 
 
     private void Awake()
@@ -167,5 +168,10 @@ public class control : MonoBehaviour
     {
         surveyFeedbackObj.SetActive(false);
         gameOverObj.SetActive(true);
+    }
+
+    public void Shake(float duration, float amountOfShake)
+    {
+        StartCoroutine(screenShake.Shake(duration, amountOfShake));
     }
 }

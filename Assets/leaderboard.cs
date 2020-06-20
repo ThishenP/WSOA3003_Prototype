@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public class leaderboard : MonoBehaviour
 {
 
-    //readonly string getScoreURL = "localhost:8000/scores_get.php";
-    //readonly string getCurrentURL = "localhost:8000/get_current.php";
-    //readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
-    readonly string getScoreURL = " http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
-    readonly string getCurrentURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_current.php";
-    readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
+    readonly string getScoreURL = "localhost:8000/scores_get.php";
+    readonly string getCurrentURL = "localhost:8000/get_current.php";
+    readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+    //readonly string getScoreURL = " http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
+    //readonly string getCurrentURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_current.php";
+    //readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
     private string text;
     private string currentUser;
     private string[] userData;

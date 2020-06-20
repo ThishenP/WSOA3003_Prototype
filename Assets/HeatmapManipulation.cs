@@ -9,8 +9,8 @@ public class HeatmapManipulation : MonoBehaviour
     private int i, j;
     private float value;
 
-    readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/stats_get.php";
-    //readonly string getURL = "localhost:8000/stats_get.php";
+    //readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/stats_get.php";
+    readonly string getURL = "localhost:8000/stats_get.php";
     private string text;
     private float highest = 0;
     private float[,] heatMapArray = new float[8, 16];

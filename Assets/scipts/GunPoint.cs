@@ -23,7 +23,12 @@ public class GunPoint : MonoBehaviour
     private Vector2 mousePos;
     private Vector2 gunDir;
     private float timeSinceShot;
-    
+    public AudioSource shootSound;
+    public AudioClip LMBSound;
+    public AudioClip RMBSound;
+    public AudioClip MMBSound;
+
+
     void Start()
     {
         playerRigid = player.GetComponent<Rigidbody2D>();
@@ -37,6 +42,8 @@ public class GunPoint : MonoBehaviour
         rmbCoolDownBar.fillAmount = rmbCoolDown;
         mmbCoolDown += Time.deltaTime * mmbCoolDownSpeed;
         mmbCoolDownBar.fillAmount = mmbCoolDown;
+      
+
         if (control.instance.end == false)
         {
             transform.position = player.transform.position;
@@ -48,21 +55,48 @@ public class GunPoint : MonoBehaviour
             {
                 Shoot(smallShootForce,smallShootParticle);
                 control.instance.lmbAmount++;
+                shootSound.clip = LMBSound;
+                shootSound.Play();
             }
 
-            if (Input.GetMouseButtonDown(1)&&rmbCoolDown>=0.999)
+            if(rmbCoolDown >= 0.999)
             {
-                Shoot(largeShootForce, shootParticle);
-                rmbCoolDown = 0;
-                control.instance.mmbamount++;
+                rmbCoolDownBar.GetComponent<Image>().color = new Color(0.5781366f, 0.2122642f, 1, 1f);
+                if (Input.GetMouseButtonDown(1))
+                {
+                    Shoot(largeShootForce, shootParticle);
+                    rmbCoolDown = 0;
+                    control.instance.mmbamount++;
+
+                    shootSound.clip = RMBSound;
+                    shootSound.Play();
+                }
+            }
+            else
+            {
+                rmbCoolDownBar.GetComponent<Image>().color = new Color(0.5781366f, 0.2122642f, 1, 0.5f);
+            }
+         
+
+            if (mmbCoolDown >= 0.999)
+            {
+                mmbCoolDownBar.GetComponent<Image>().color = new Color(0.73144f, 1, 0.2588235f, 1f);
+
+                if (Input.GetMouseButtonDown(2))
+                {
+                    explode.Play();
+                    mmbCoolDown = 0;
+                    control.instance.rmbamount++;
+                    control.instance.Shake(0.3f, 0.2f);
+                    shootSound.clip = MMBSound;
+                    shootSound.Play();
+                }
+            }
+            else
+            {
+                mmbCoolDownBar.GetComponent<Image>().color = new Color(0.73144f, 1, 0.2588235f, 0.5f);
             }
 
-            if (Input.GetMouseButtonDown(2) && mmbCoolDown >= 0.999)
-            {
-                explode.Play();
-                mmbCoolDown = 0;
-                control.instance.rmbamount++;
-            }
             //if (Input.GetMouseButtonDown(0))
             //{
             //    particles.Play();
