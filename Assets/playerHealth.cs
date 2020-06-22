@@ -36,6 +36,7 @@ public class playerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         timeSinceHealth += Time.deltaTime;
         if (timeSinceHealth > 15)
         {
@@ -77,7 +78,21 @@ public class playerHealth : MonoBehaviour
             {
                 health = health + 10;
                 healthBar.fillAmount = health / 100;
+               
             }
+        }
+
+        if (health > 50)
+        {
+            healthBar.color = new Color(0.001088489f, 0.8584906f, 0);
+        }else if (health < 30)
+        {
+            
+            healthBar.color = new Color(0.809f, 0, 0.05092573f);
+        }
+        else
+        {
+            healthBar.color = new Color(0.8962264f, 0.5053604f,0.1817818f);
         }
 
         if (health <= 0)

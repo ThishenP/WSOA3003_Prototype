@@ -27,6 +27,10 @@ public class GunPoint : MonoBehaviour
     public AudioClip LMBSound;
     public AudioClip RMBSound;
     public AudioClip MMBSound;
+    public AudioSource ting;
+    public AudioSource coh;
+    private bool tingedMMB;
+    private bool tingedRMB;
 
 
     void Start()
@@ -51,7 +55,7 @@ public class GunPoint : MonoBehaviour
             gunDir = new Vector2(transform.position.x, transform.position.y) - mousePos;
             transform.up = -gunDir;
             timeSinceShot += Time.deltaTime;
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)&& control.instance.paused==false)
             {
                 Shoot(smallShootForce,smallShootParticle);
                 control.instance.lmbAmount++;
@@ -62,7 +66,13 @@ public class GunPoint : MonoBehaviour
             if(rmbCoolDown >= 0.999)
             {
                 rmbCoolDownBar.GetComponent<Image>().color = new Color(0.5781366f, 0.2122642f, 1, 1f);
-                if (Input.GetMouseButtonDown(1))
+                if (tingedRMB==false) {
+
+                    tingedRMB = true;
+                    ting.Play();
+                }
+
+                if (Input.GetMouseButtonDown(1) && control.instance.paused == false)
                 {
                     Shoot(largeShootForce, shootParticle);
                     rmbCoolDown = 0;
@@ -71,10 +81,16 @@ public class GunPoint : MonoBehaviour
                     shootSound.clip = RMBSound;
                     shootSound.Play();
                 }
+                
             }
             else
             {
+                tingedRMB = false;
                 rmbCoolDownBar.GetComponent<Image>().color = new Color(0.5781366f, 0.2122642f, 1, 0.5f);
+                if (Input.GetMouseButtonDown(1) && control.instance.paused == false)
+                {
+                    coh.Play();
+                }
             }
          
 
@@ -82,7 +98,13 @@ public class GunPoint : MonoBehaviour
             {
                 mmbCoolDownBar.GetComponent<Image>().color = new Color(0.73144f, 1, 0.2588235f, 1f);
 
-                if (Input.GetMouseButtonDown(2))
+                if (tingedMMB == false)
+                {
+                    tingedMMB = true;
+                    ting.Play();
+                }
+
+                if (Input.GetMouseButtonDown(2) && control.instance.paused == false)
                 {
                     explode.Play();
                     mmbCoolDown = 0;
@@ -91,10 +113,16 @@ public class GunPoint : MonoBehaviour
                     shootSound.clip = MMBSound;
                     shootSound.Play();
                 }
+
             }
             else
             {
+                tingedMMB = false;
                 mmbCoolDownBar.GetComponent<Image>().color = new Color(0.73144f, 1, 0.2588235f, 0.5f);
+                if (Input.GetMouseButtonDown(2) && control.instance.paused == false)
+                {
+                    coh.Play();
+                }
             }
 
             //if (Input.GetMouseButtonDown(0))

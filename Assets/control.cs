@@ -32,6 +32,7 @@ public class control : MonoBehaviour
     public GameObject surveyFeedbackObj;
     public GameObject gameOverObj;
     public screenShake screenShake;
+    public bool paused = false;
 
 
     private void Awake()
