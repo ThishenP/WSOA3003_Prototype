@@ -17,11 +17,11 @@ public class Pause : MonoBehaviour
     public Text muteMusic;
     public Text muteFX;
     private string preferences;
-    //readonly string prefsGetURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_player_prefs.php";
-    
-    readonly string prefsGetURL = "localhost:8000/get_player_prefs.php";
-    readonly string prefsPostURL = "localhost:8000/post_player_prefs.php";
-    //readonly string prefsPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/post_player_prefs.php";
+    readonly string prefsGetURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/get_player_prefs.php";
+    readonly string prefsPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/post_player_prefs.php";
+    //readonly string prefsGetURL = "localhost:8000/get_player_prefs.php";
+    //readonly string prefsPostURL = "localhost:8000/post_player_prefs.php";
+   
     // Start is called before the first frame update
     void Start()
     {

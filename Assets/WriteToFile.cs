@@ -26,16 +26,16 @@ public class WriteToFile : MonoBehaviour
     public GameObject form;
     public bool sendData;
     private bool sent = false;
-    
-    //readonly string feedbackPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
-    //readonly string heatMapPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/heat_map_post_handler.php";
+
+    readonly string feedbackPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
+    readonly string heatMapPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/heat_map_post_handler.php";
     //readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/unity_post_handler.php";
-  
-   
-    readonly string feedbackPostURL = "localhost:8000/unity_post_handler.php";
-    readonly string heatMapPostURL = "localhost:8000/heat_map_post_handler.php";
-   
-    
+
+
+    //readonly string feedbackPostURL = "localhost:8000/unity_post_handler.php";
+    //readonly string heatMapPostURL = "localhost:8000/heat_map_post_handler.php";
+
+
 
     // Start is called before the first frame update
     void Start()
