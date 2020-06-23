@@ -92,6 +92,19 @@ public class Username : MonoBehaviour
         }
     }
 
+    public void HowTo()
+    {
+        errorText.text = "How To Play\n\nPrimary Fire - Left Mouse Button(LMB)\nSecondary Fire - Right Mouse Button(RMB)" +
+            "\n Bomb - Middle Mouse Button(MMB)\nPause - Space(sound settings in pause menu)\nAvoid or kill incoming red dots\nAvoid bright red walls"; 
+        error.SetActive(true);
+        menu.SetActive(false);
+    }
+    public void Credits()
+    {
+        errorText.text = "Credits\n\nFont: Ibram Syah\n\nMusic: '8 Bit Win!'\nBy HeatleyBros https://youtu.be/Bok8nLviThg";
+        error.SetActive(true);
+        menu.SetActive(false);
+    }
 
     public void Play()
     {
