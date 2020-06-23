@@ -9,16 +9,38 @@
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Upload5.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Upload6.json", {onProgress: UnityProgress});
     </script>
   </head>
-  <body>
-    <div class="webgl-content">
-      <div id="unityContainer" style="width: 960px; height: 600px"></div>
-      <div class="footer">
-        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-        <div class="title">Please play in fullscreen</div>
+  <div class="container">
+    <header>
+      <h1>DOT FIGHTER</h1>
+    </header>
+  
+    <body>
+      <div class="how-to">
+        <h2>How To Play</h2>
+          <p>Primary Fire - Left Mouse Button (LMB)</p>
+          <p>Secondary Fire - Right Mouse Button (RMB)</p>
+          <p>Bomb - Middle Mouse Button (MMB)</p>
+          <p>Pause - Space (sound settings in pause menu)</p>
+          <p>Avoid or kill incoming red dots</p>
+          <p>Avoid bright red walls</p>
       </div>
-    </div>
-  </body>
+      <div class="credits">
+        <h2>credits</h2>
+        <p>Font: Ibram Syah</p>
+        
+        <p>Music: "8 Bit Win!" By HeatleyBros https://youtu.be/Bok8nLviThg</p>
+      </div>
+      <div class="webgl-content">
+        <div id="unityContainer" style="width: 960px; height: 600px"></div>
+        <div class="footer">
+          <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+          <div class="title">Please play in fullscreen</div>
+        </div>
+      </div>
+    </body>
+  </div>
+
 </html>

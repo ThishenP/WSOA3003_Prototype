@@ -28,7 +28,10 @@ public class HitDetection : MonoBehaviour
         if (this.tag!= "Health") {
             explosion.transform.position = transform.position;
             explosion.GetComponent<ParticleSystem>().Play();
-            explosionSound.Play();
+            if (!control.instance.mutedFX)
+            {
+                explosionSound.Play();
+            }
             transform.position = poolPos;
             control.instance.Point();
             
@@ -44,7 +47,10 @@ public class HitDetection : MonoBehaviour
             explosion.GetComponent<ParticleSystem>().Play();
             if (this.tag != "Health")
             {
-                explosionSound.Play();
+                if (!control.instance.mutedFX)
+                {
+                    explosionSound.Play();
+                }
                
                control.instance.Shake(0.1f, 0.2f);
             }

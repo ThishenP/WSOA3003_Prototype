@@ -10,6 +10,8 @@ public class Username : MonoBehaviour
 {
     readonly string getURL = "localhost:8000/scores_get.php";
     readonly string scoresPostURL = "localhost:8000/username_scores_post_handler.php";
+    readonly string prefsPostURL = "localhost:8000/post_player_prefs.php";
+    //readonly string prefsPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/post_player_prefs.php";
     //readonly string getURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/scores_get.php";
     //readonly string scoresPostURL = "http://ec2-13-244-111-38.af-south-1.compute.amazonaws.com/username_scores_post_handler.php";
 
@@ -21,11 +23,12 @@ public class Username : MonoBehaviour
     public GameObject userInput;
     public Text signedIn;
     private bool loggedIn=false;
+    public GameObject play;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(GetScores());
-    
+        StartCoroutine(SendPrefs("False,False"));
     }
 
     // Update is called once per frame
@@ -70,6 +73,25 @@ public class Username : MonoBehaviour
 
     }
 
+    IEnumerator SendPrefs(string prefs)
+    {
+        bool success = true;
+        List<IMultipartFormSection> survey = new List<IMultipartFormSection>();
+        survey.Add(new MultipartFormDataSection("prefs", prefs));
+        Debug.Log(prefsPostURL);
+        UnityWebRequest www = UnityWebRequest.Post(prefsPostURL, survey);
+
+        yield return www.SendWebRequest();
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.LogError(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+        }
+    }
+
 
     public void Play()
     {
@@ -96,6 +118,7 @@ public class Username : MonoBehaviour
                     userInput.SetActive(false);
                     signedIn.text = "signed in as: " + username.text;
                     loggedIn = true;
+                    play.SetActive(true);
                 }
                 else
                 {
@@ -139,6 +162,7 @@ public class Username : MonoBehaviour
                     userInput.SetActive(false);
                     signedIn.text = "signed in as: " + username.text;
                     loggedIn = true;
+                    play.SetActive(true);
                 }
             }
             else

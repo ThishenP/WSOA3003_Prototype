@@ -33,6 +33,8 @@ public class control : MonoBehaviour
     public GameObject gameOverObj;
     public screenShake screenShake;
     public bool paused = false;
+    public bool mutedFX =false;
+    public bool mutedMusic=false;
 
 
     private void Awake()
